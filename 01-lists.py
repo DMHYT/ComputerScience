@@ -16,5 +16,5 @@ elementsSum = 0
 for item in arr:
     elementsSum += item
 
-# Выводим сообщение на экран
+# Выводим сообщение в консоль
 print("Сумма элементов массива:", elementsSum)
