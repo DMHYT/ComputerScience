@@ -5,15 +5,14 @@
 # Также добавлена функция чтения данных из файла в Listbox,
 # если этот файл уже был создан.
 # При чтении данных из файла, программа спросит, очистить ли перед этим Listbox.
+# Наконец, при записи данных в файл программа покажет его путь,
+# и спросит, надо ли запустить его на экране
 
 # Импортируем tkinter и messagebox
 import tkinter as tk
 import tkinter.messagebox as mb
-# Также два метода из os:
-# первый для получения расположения скрипта, второй для создания папки
-from os import getcwd, mkdir
-# И метод на проверку существования пути из os.path
-from os.path import exists
+# Также метод из os на получения расположения скрипта
+from os import getcwd
 
 # Создаём класс окна, наследуем от tkinter.Tk
 class ListboxFileWriter(tk.Tk):
@@ -30,9 +29,9 @@ class ListboxFileWriter(tk.Tk):
         self.scrollY = tk.Scrollbar(self, orient='vertical') # Одна полоса вертикальная
         # Используем параметры rowspan/columnspan и sticky,
         # чтобы полосы покрывали всё пространство под и слева от Listbox'а
-        self.scrollY.grid(column=1, row=1, rowspan=3, sticky='ns')
+        self.scrollY.grid(column=1, row=1, rowspan=5, sticky='ns')
         self.scrollX = tk.Scrollbar(self, orient='horizontal') # И другая полоса горизонтальная
-        self.scrollX.grid(column=1, row=4, columnspan=3, sticky='ew')
+        self.scrollX.grid(column=2, row=6, sticky='ew')
         # Создаём сам Listbox, украшаем его, привязываем полосы прокрутки и делаем расположение
         self.listbox = tk.Listbox(self, font='Helvetica', bg='black', fg='lightskyblue', yscrollcommand=self.scrollY.set, xscrollcommand=self.scrollX.set)
         self.listbox.grid(row=1, column=2, rowspan=5, sticky='nsew')
@@ -58,8 +57,20 @@ class ListboxFileWriter(tk.Tk):
         except tk.TclError:
             mb.showerror("ОШИБКА!", "Вы не выбрали элемент для удаления!")
 
+    # Сделаем функцию, которая будет запускать сгенерированный файл
+    def ___launch_file___(self):
+        # Только здесь нам понадобится метод запуска файла из os
+        # Импортируем его локально
+        from os import startfile
+        # Запускаем файл)))
+        startfile(self.__file_path__)
+
     # Ну а теперь напишем функцию для записи элементов Listbox'a в файл
     def __write_items_to_file__(self):
+        # Локально импортируем метод создания папки из os
+        from os import mkdir
+        # И метод на проверку существования пути из os.path
+        from os.path import exists
         # При записи данных в файл мы также должны предусмотреть ту ситуацию, 
         # в которой ни файла, ни даже папки с ним не будет создано
         # (а такое будет, если кто-то захочет запустить скрипт у себя на компьютере в первый раз)
@@ -74,7 +85,11 @@ class ListboxFileWriter(tk.Tk):
                 file.write(str(listbox_entry))
                 # Пишем перенос строки
                 file.write("\n")
-            mb.showinfo("ГОТОВО", "Все данные из Listbox'а успешно записаны в локальный файл!")
+            mb.showinfo("ГОТОВО", "Все данные из Listbox'а успешно записаны в локальный файл! \nПуть к файлу: " + self.__file_path__)
+            # Спрашиваем у пользователя, запустить ли файл на экране
+            if mb.askyesno("ПРИМЕЧАНИЕ", "Открыть файл?"):
+                # Если да, вызываем ранее написанную функцию
+                self.___launch_file___()
             file.close()
         # Если вылезает исключение
         except FileNotFoundError:
