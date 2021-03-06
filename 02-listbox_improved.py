@@ -10,6 +10,9 @@ from tkinter import messagebox as mb
 
 main = tk.Tk()
 main.title("Списки")
+# Сделаны неизменные размеры окна
+main.minsize(width=330, height=215)
+main.maxsize(width=330, height=215)
 # Подобраны идеальные размеры окна
 main.geometry("330x215")
 
