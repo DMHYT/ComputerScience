@@ -1,6 +1,7 @@
 # Улучшенная схема 04-listworking_common, объединяющая в себе два варианта
 # реализации (с tkinter и без), и обрабатывающая ошибки, к которым
 # уязвим код, данный в листинге
+# Также добавлен момент очищения второго Listbox'a при повторе операции
 
 import tkinter as tk
 import tkinter.messagebox as mb
@@ -29,6 +30,9 @@ def window_mode():
         box.insert('end', entry.get())
         entry.delete(0, 'end')
     def count_squares():
+        # Если второй Listbox не пустой, чистим его
+        if len(boxSq.get(0, 'end')) > 0:
+            boxSq.delete(0, 'end')
         elems = box.get(0, 'end')
         for item in elems:
             # Делаем обработку исключения ValueError
