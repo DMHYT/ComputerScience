@@ -30,7 +30,12 @@ def window_mode():
     quantity = tk.Label(mainw)
     quantity.grid(row=2, column=3, sticky='nsew')
     def add_item():
-        box.insert('end', entry.get())
+        entry_text = entry.get()
+        # Если поле ввода пустое, не добавляем элемент в Listbox
+        if len(entry_text) == 0:
+            mb.showerror("ОШИБКА", "Не удалось получить введённые данные!")
+            return
+        box.insert('end', entry_text)
         entry.delete(0, 'end')
     def count_equal_elements():
         array = []

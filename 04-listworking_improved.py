@@ -27,7 +27,12 @@ def window_mode():
     boxSq = tk.Listbox(mainw, yscrollcommand=sy.set, xscrollcommand=sx.set)
     boxSq.grid(row=1, column=4, rowspan=3)
     def add_item():
-        box.insert('end', entry.get())
+        entry_text = entry.get()
+        # Если поле ввода пустое, не добавляем элемент в Listbox
+        if len(entry_text) == 0:
+            mb.showerror("ОШИБКА", "Не удалось получить введённые данные!")
+            return
+        box.insert('end', entry_text)
         entry.delete(0, 'end')
     def count_squares():
         # Если второй Listbox не пустой, чистим его

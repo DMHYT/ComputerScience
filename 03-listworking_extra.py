@@ -33,7 +33,12 @@ class ListboxElementCounter(tk.Tk):
     # Теперь отдельно функции кнопок, первые две списываем с прошлого урока
 
     def __append_item_to_listbox__(self):
-        self.listbox.insert('end', self.entry.get())
+        entry_text = self.entry.get()
+        # Если поле ввода пустое, не добавляем элемент в Listbox
+        if len(entry_text) == 0:
+            mb.showerror("ОШИБКА", "Не удалось получить введённые данные!")
+            return
+        self.listbox.insert('end', entry_text)
         self.entry.delete(0, 'end')
     
     def __delete_item_from_listbox__(self):
@@ -56,6 +61,9 @@ class ListboxElementCounter(tk.Tk):
 
     # Та самая функция сортировки
     def __sort_items_counts__(self):
+        # Очищаем сортированный Listbox перед операцией, если он не пустой
+        if len(self.listboxSorted.get(0, 'end')) > 0:
+            self.listboxSorted.delete(0, 'end')
         # Создаём словарь
         sortedDict = dict()
         # Перекидываем элементы Listbox'а в новосозданный список, для удобства

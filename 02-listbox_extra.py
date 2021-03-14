@@ -47,7 +47,12 @@ class ListboxFileWriter(tk.Tk):
     # Перед тем, как создать кнопки, напишем для них функции
     # Первые две повторяем из основного д/з, только не забываем использовать ключевое слово self
     def __append_item_to_listbox__(self):
-        self.listbox.insert('end', self.entry.get())
+        entry_text = self.entry.get()
+        # Если поле ввода пустое, не добавляем элемент в Listbox
+        if len(entry_text) == 0:
+            mb.showerror("ОШИБКА", "Не удалось получить введённые данные!")
+            return
+        self.listbox.insert('end', entry_text)
         self.entry.delete(0, 'end')
 
     def __delete_item_from_listbox__(self):
