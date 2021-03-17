@@ -91,7 +91,7 @@ class Stonks(tk.Tk):
             # Говорим пользователю, шо хтось накосячив 0_0
             mb.showerror("ОШИБКА", "Значение цены может быть только числового типа!\nКоличество недель может быть только целочисленного типа")
 
-    # Создаём кгопку с ранее написанной функцией
+    # Создаём кнопку с ранее написанной функцией
     def createButton(self):
         self.buttonCount = tk.Button(self, text="Рассчитать", command=self.__count__)
         self.buttonCount.grid(row=7, column=0, sticky='nsew')
