@@ -39,7 +39,7 @@ scrollX.config(command=box.xview)
 scrollY.config(command=box.yview)
 
 def count_price_changing():
-    if len(box.get(0, 'end')) > 0:
+    if box.size() > 0:
         box.delete(0, 'end')
     try:
         k = float(entry.get())

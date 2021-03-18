@@ -36,7 +36,7 @@ def window_mode():
         entry.delete(0, 'end')
     def count_squares():
         # Если второй Listbox не пустой, чистим его
-        if len(boxSq.get(0, 'end')) > 0:
+        if boxSq.size() > 0:
             boxSq.delete(0, 'end')
         elems = box.get(0, 'end')
         for item in elems:

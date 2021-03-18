@@ -60,7 +60,7 @@ class Stonks(tk.Tk):
     # Саме цикаве - функция подсчётов)))
     def __count__(self):
         # Как и в прошлые разы, перед операцией очищаем Listbox, если он не пустой
-        if len(self.box.get(0, 'end')) > 0:
+        if self.box.size() > 0:
             self.box.delete(0, 'end')
         # Обрабатываем ValueError. В поле для цены пользователь сможет ввести int и float,
         # а в поле для количества недель только int

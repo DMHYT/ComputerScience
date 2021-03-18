@@ -61,7 +61,7 @@ def append_item():
     
 
 def count_environments():
-    if len(box2.get(0, 'end')) > 0:
+    if box2.size() > 0:
         box2.delete(0, 'end')
     # Словарь вместо трёх переменных
     envs = {'acidic': 0, 'neutral': 0, 'alcaline': 0}
