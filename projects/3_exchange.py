@@ -56,7 +56,6 @@ class CurrencyExchangeWindow(tk.Tk):
 
     def __get_dict_with_base__(self):
         key = self.selected_currency.get()
-        print("Отправлен запрос на получение словаря для " + key)
         data = loads(urlopen('https://www.cbr-xml-daily.ru/daily_json.js').read().decode('utf-8'))
         valute = data['Valute']
         for k in valute:
