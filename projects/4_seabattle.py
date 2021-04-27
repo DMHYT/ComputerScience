@@ -62,8 +62,6 @@ t0 = tk.Label(mainw, text="Игрок №1", font=("Helvetica", 16))
 t0.place(x=size_canvas_x // 2 - t0.winfo_reqwidth() // 2, y=size_canvas_y + 3)
 t1 = tk.Label(mainw, text="Игрок №2"+add_to_label, font=("Helvetica", 16))
 t1.place(x=size_canvas_x + menu_x + size_canvas_x // 2 - t1.winfo_reqwidth() // 2, y=size_canvas_y + 3)
-t0.configure(bg="red")
-t0.configure(bg="#f0f0f0")
 t3 = tk.Label(mainw, text="@@@@@@@", font=("Helvetica", 16))
 t3.place(x=size_canvas_x + menu_x//2 - t3.winfo_reqwidth() // 2, y= size_canvas_y)
 
@@ -82,9 +80,9 @@ if is_vs_ai:
     rb1.select()
 
 def mark_player_turn(player_1):
-    t0.configure(bg=('red' if player_1 else 'white'), text="Игрок №1"+add_to_label2)
-    t1.configure(bg=('white' if player_1 else 'red'), text="Игрок №2"+add_to_label)
-    t3.configure(text="Ход игрока №"+("1" if player_1 else "2" + add_to_label))
+    t0.configure(bg=('white' if player_1 else 'red'), text="Игрок №1"+add_to_label2)
+    t1.configure(bg=('red' if player_1 else 'white'), text="Игрок №2"+add_to_label)
+    t3.configure(text="Ход игрока №"+("2" if player_1 else "1" + add_to_label))
     t0.place(x=size_canvas_x//2-t0.winfo_reqwidth()//2, y=size_canvas_y+3)
     t1.place(x=size_canvas_x+menu_x+size_canvas_x//2-t1.winfo_reqwidth()//2, y=size_canvas_y+3)
     t3.place(x=size_canvas_x+menu_x//2-t3.winfo_reqwidth()//2, y=size_canvas_y)
@@ -184,7 +182,7 @@ def add_to_all(event):
         if points1[ip_y][ip_x] == -1:
             points1[ip_y][ip_x] = _type
             player_1_turn = False
-            draw_point(ip_x, ip_y)
+            draw_point_1(ip_x, ip_y)
             if check_winner_1():
                 player_1_turn = True
                 on_win_1()
