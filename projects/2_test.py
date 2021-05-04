@@ -76,16 +76,15 @@ class QuestionDialog(tk.Tk):
 
     def __init__(self, qcount):
         tk.Tk.__init__(self)
-        self.minsize(width=200, height=200)
-        self.maxsize(width=400, height=400)
-        self.geometry("300x300")
+        self.resizable(0, 0)
+        self.wm_attributes("-topmost", 1)
         self.score = 0
         shuffle(questions)
         self.qs = questions[0:min(qcount, 50)]
         self.currentq = -1
         self.chosen = tk.IntVar()
         self.chosen.set(-1)
-        self.label = tk.Label(self)
+        self.label = tk.Label(self, font=('Helvetica', 14))
         self.label.grid(row=0, column=0, sticky='nsew')
         self.buttons = []
         self.update()
@@ -125,9 +124,9 @@ class QuestionDialog(tk.Tk):
                 self.buttonConfirm.destroy()
             self.buttons.clear()
             for i in range(len(q.variants)):
-                self.buttons.append(tk.Radiobutton(self, text=q.variants[i].text, variable=self.chosen, value=(1 if q.variants[i].correct else -i)))
+                self.buttons.append(tk.Radiobutton(self, text=q.variants[i].text, font=('Helvetica', 14), variable=self.chosen, value=(1 if q.variants[i].correct else -i)))
                 self.buttons[i].grid(row=1+i, column=0, sticky='nsew')
-            self.buttonConfirm = tk.Button(self, text="Подтвердить ответ", command=self.__button_func__)
+            self.buttonConfirm = tk.Button(self, text="Подтвердить ответ", font=('Helvetica', 14), command=self.__button_func__)
             self.buttonConfirm.grid(row=len(q.variants)+1, column=0, sticky='nsew')
         else:
             mb.showinfo("ИНФО", "Тест завершён! Смотрите результаты!")
@@ -153,14 +152,13 @@ class StartWindow(tk.Tk):
     def __init__(self):
         tk.Tk.__init__(self)
         self.title("ТЕСТ")
-        self.minsize(width=175, height=95)
-        self.maxsize(width=175, height=95)
-        self.geometry("175x95")
-        self.label = tk.Label(self, text="Тест по информатике\nпо теме \"Python\"\nВведите количество вопросов:")
+        self.resizable(0, 0)
+        self.wm_attributes("-topmost", 1)
+        self.label = tk.Label(self, text="Тест по информатике\nпо теме \"Python\"\nВведите количество вопросов:", font=('Helvetica', 14))
         self.label.grid(row=0, column=0, sticky='nsew')
-        self.entryCount = tk.Entry(self)
+        self.entryCount = tk.Entry(self, font=('Helvetica', 14))
         self.entryCount.grid(row=1, column=0, sticky='nsew')
-        self.buttonStart = tk.Button(self, text="Начать", command=self.__start_test__)
+        self.buttonStart = tk.Button(self, text="Начать", font=('Helvetica', 14), command=self.__start_test__)
         self.buttonStart.grid(row=2, column=0, sticky='nsew')
         self.mainloop()
 
@@ -170,14 +168,13 @@ class EndWindow(tk.Tk):
     def __init__(self, score, maxscore):
         tk.Tk.__init__(self)
         self.title("Результаты теста")
-        self.minsize(width=200, height=70)
-        self.maxsize(width=220, height=70)
-        self.geometry("200x70")
-        self.label = tk.Label(self, text="Ваш результат: " + str(score) + " из " + str(maxscore) + " баллов! (" + str(score / maxscore * 100) + "%)")
+        self.resizable(0, 0)
+        self.wm_attributes("-topmost", 1)
+        self.label = tk.Label(self, text="Ваш результат: " + str(score) + " из " + str(maxscore) + " баллов! (" + str(score / maxscore * 100) + "%)", font=('Helvetica', 14))
         self.label.grid(row=0, column=0, sticky='nsew')
-        self.buttonOneMoreTime = tk.Button(self, text="Пройти ещё раз", command=self.__launch_new_test__)
+        self.buttonOneMoreTime = tk.Button(self, text="Пройти ещё раз", font=('Helvetica', 14), command=self.__launch_new_test__)
         self.buttonOneMoreTime.grid(row=1, column=0, sticky='nsew')
-        self.buttonEnd = tk.Button(self, text="Завершить", command=self.destroy)
+        self.buttonEnd = tk.Button(self, text="Завершить", font=('Helvetica', 14), command=self.destroy)
         self.buttonEnd.grid(row=2, column=0, sticky='nsew')
 
     def __launch_new_test__(self):

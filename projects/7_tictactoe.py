@@ -3,7 +3,6 @@ import tkinter.messagebox as mb
 from time import sleep
 from random import randint
 
-
 mainw = tk.Tk()
 app_running = True
 size_canvas_x = size_canvas_y = 240
@@ -50,11 +49,23 @@ def change_var():
     global is_vs_ai
     is_vs_ai = is_vs_ai_var.get()
 
+def restart():
+    global list_ids, crosses, noughts
+    for el in list_ids:
+        cvs.delete(el)
+    list_ids = []
+    crosses = [[0 for i in range(s_x + 1)] for i in range(s_y + 1)]
+    noughts = [[0 for i in range(s_x + 1)] for i in range(s_y + 1)]
+    is_cross_turn = True
+
+buttonRestart = tk.Button(mainw, text="Начать заново", font=('Helvetica', 14), command=restart)
+buttonRestart.place(x=size_canvas_x+menu_x//2-buttonRestart.winfo_reqwidth()//2, y=10)
+
 is_vs_ai_var = tk.BooleanVar()
-rb1 = tk.Radiobutton(mainw, text="Игрок vs ИИ", variable=is_vs_ai_var, value=1, command=change_var)
-rb2 = tk.Radiobutton(mainw, text="Игрок vs Игрок", variable=is_vs_ai_var, value=0, command=change_var)
-rb1.place(x=size_canvas_x+menu_x//2-rb1.winfo_reqwidth()//2, y=40)
-rb2.place(x=size_canvas_x+menu_x//2-rb2.winfo_reqwidth()//2, y=60)
+rb1 = tk.Radiobutton(mainw, text="Игрок vs ИИ", variable=is_vs_ai_var, value=1, command=change_var, font=('Helvetica', 14))
+rb2 = tk.Radiobutton(mainw, text="Игрок vs Игрок", variable=is_vs_ai_var, value=0, command=change_var, font=('Helvetica', 14))
+rb1.place(x=size_canvas_x+menu_x//2-rb1.winfo_reqwidth()//2, y=10+buttonRestart.winfo_reqheight()+5)
+rb2.place(x=size_canvas_x+menu_x//2-rb2.winfo_reqwidth()//2, y=10+buttonRestart.winfo_reqheight()+rb1.winfo_reqheight()+10)
 if is_vs_ai:
     rb1.select()
 
@@ -69,18 +80,6 @@ def mark_turn(is_cross):
     #     list_ids.append(cvs.create_oval(x * step_x, y * step_y, x * step_x + step_x, y * step_y + step_y, fill='blue'))
     #     list_ids.append(cvs.create_oval(x * step_x + step_x // 3, y * step_y + step_y // 3, x * step_x + step_x - step_x // 3, y * step_y + step_y - step_y // 3, fill='white'))
 mark_turn(is_cross_turn)
-
-def restart():
-    global list_ids, crosses, noughts
-    for el in list_ids:
-        cvs.delete(el)
-    list_ids = []
-    crosses = [[0 for i in range(s_x + 1)] for i in range(s_y + 1)]
-    noughts = [[0 for i in range(s_x + 1)] for i in range(s_y + 1)]
-    is_cross_turn = True
-
-buttonRestart = tk.Button(mainw, text="Начать заново", command=restart)
-buttonRestart.place(x=size_canvas_x+menu_x//2-buttonRestart.winfo_reqwidth()//2, y=10)
 
 def cut_combinations(lst):
     result = []

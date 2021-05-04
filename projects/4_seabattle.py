@@ -65,30 +65,6 @@ t1.place(x=size_canvas_x + menu_x + size_canvas_x // 2 - t1.winfo_reqwidth() // 
 t3 = tk.Label(mainw, text="@@@@@@@", font=("Helvetica", 16))
 t3.place(x=size_canvas_x + menu_x//2 - t3.winfo_reqwidth() // 2, y= size_canvas_y)
 
-def change_rb():
-    global is_vs_ai, add_to_label, add_to_label2
-    is_vs_ai = rb_var.get()
-    add_to_label = " (ИИ)" if is_vs_ai else ""
-    add_to_label2 = " (прицеливается)" if is_vs_ai else ""
-
-rb_var = tk.BooleanVar()
-rb1 = tk.Radiobutton(mainw, text="Human vs Computer", variable = rb_var, value=1, command=change_rb)
-rb2 = tk.Radiobutton(mainw, text="Human vs Human", variable = rb_var, value=0, command=change_rb)
-rb1.place(x=size_canvas_x + menu_x // 2 - rb1.winfo_reqwidth() // 2, y=140)
-rb2.place(x=size_canvas_x + menu_x // 2 - rb2.winfo_reqwidth() // 2, y=160)
-if is_vs_ai:
-    rb1.select()
-
-def mark_player_turn(player_1):
-    t0.configure(bg=('white' if player_1 else 'red'), text="Игрок №1"+add_to_label2)
-    t1.configure(bg=('red' if player_1 else 'white'), text="Игрок №2"+add_to_label)
-    t3.configure(text="Ход игрока №"+("2" if player_1 else "1" + add_to_label))
-    t0.place(x=size_canvas_x//2-t0.winfo_reqwidth()//2, y=size_canvas_y+3)
-    t1.place(x=size_canvas_x+menu_x+size_canvas_x//2-t1.winfo_reqwidth()//2, y=size_canvas_y+3)
-    t3.place(x=size_canvas_x+menu_x//2-t3.winfo_reqwidth()//2, y=size_canvas_y)
-
-mark_player_turn(player_1_turn)
-
 def show_ships(num):
     for i in range(0, s_x):
         for j in range(0, s_y):
@@ -111,12 +87,36 @@ def restart():
     points2 = [[-1 for i in range(s_x)] for i in range(s_y)]
     boom = [[0 for i in range(s_x)] for i in range(s_y)]
 
-buttonShow1 = tk.Button(mainw, text="Показать корабли\nигрока №1", command=show_ships_1)
+buttonShow1 = tk.Button(mainw, text="Показать корабли\nигрока №1", font=('Helvetica', 14), command=show_ships_1)
 buttonShow1.place(x=size_canvas_x + menu_x // 2 - buttonShow1.winfo_reqwidth() // 2, y=10)
-buttonShow2 = tk.Button(mainw, text="Показать корабли\nигрока №2", command=show_ships_2)
-buttonShow2.place(x=size_canvas_x + menu_x // 2 - buttonShow2.winfo_reqwidth() // 2, y=60)
-buttonRestart = tk.Button(mainw, text="Начать заново", command=restart)
-buttonRestart.place(x=size_canvas_x + menu_x // 2 - buttonRestart.winfo_reqwidth() // 2, y=110)
+buttonShow2 = tk.Button(mainw, text="Показать корабли\nигрока №2", font=('Helvetica', 14), command=show_ships_2)
+buttonShow2.place(x=size_canvas_x + menu_x // 2 - buttonShow2.winfo_reqwidth() // 2, y=10+buttonShow1.winfo_reqheight()+5)
+buttonRestart = tk.Button(mainw, text="Начать заново", font=('Helvetica', 14), command=restart)
+buttonRestart.place(x=size_canvas_x + menu_x // 2 - buttonRestart.winfo_reqwidth() // 2, y=10+buttonShow1.winfo_reqheight()+buttonShow2.winfo_reqheight()+10)
+
+def change_rb():
+    global is_vs_ai, add_to_label, add_to_label2
+    is_vs_ai = rb_var.get()
+    add_to_label = " (ИИ)" if is_vs_ai else ""
+    add_to_label2 = " (прицеливается)" if is_vs_ai else ""
+
+rb_var = tk.BooleanVar()
+rb1 = tk.Radiobutton(mainw, text="Игрок vs ИИ", variable = rb_var, value=1, command=change_rb, font=('Helvetica', 14))
+rb2 = tk.Radiobutton(mainw, text="Игрок vs Игрок", variable = rb_var, value=0, command=change_rb, font=('Helvetica', 14))
+rb1.place(x=size_canvas_x + menu_x // 2 - rb1.winfo_reqwidth() // 2, y=10 + buttonShow1.winfo_reqheight() + buttonShow2.winfo_reqheight() + buttonRestart.winfo_reqheight() + 15)
+rb2.place(x=size_canvas_x + menu_x // 2 - rb2.winfo_reqwidth() // 2, y=10 + buttonShow1.winfo_reqheight() + buttonShow2.winfo_reqheight() + buttonRestart.winfo_reqheight() + rb1.winfo_reqheight() + 20)
+if is_vs_ai:
+    rb1.select()
+
+def mark_player_turn(player_1):
+    t0.configure(bg=('white' if player_1 else 'red'), text="Игрок №1"+add_to_label2)
+    t1.configure(bg=('red' if player_1 else 'white'), text="Игрок №2"+add_to_label)
+    t3.configure(text="Ход игрока №"+("2" if player_1 else "1" + add_to_label))
+    t0.place(x=size_canvas_x//2-t0.winfo_reqwidth()//2, y=size_canvas_y+3)
+    t1.place(x=size_canvas_x+menu_x+size_canvas_x//2-t1.winfo_reqwidth()//2, y=size_canvas_y+3)
+    t3.place(x=size_canvas_x+menu_x//2-t3.winfo_reqwidth()//2, y=size_canvas_y)
+
+mark_player_turn(player_1_turn)
 
 def draw_point(x, y, offset_x=None):
     if enemy_ships1[y][x] == 0:

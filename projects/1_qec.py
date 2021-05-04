@@ -51,11 +51,10 @@ equation = QuadraticEquation()
 
 mainw = tk.Tk()
 mainw.title("Калькулятор квадратных уравнений")
-mainw.minsize(width=370, height=135)
-mainw.maxsize(width=370, height=135)
-mainw.geometry("370x135")
+mainw.resizable(0, 0)
+mainw.wm_attributes("-topmost", 1)
 
-labelEquation = tk.Label(mainw, text='x^2 + x + 1 = 0')
+labelEquation = tk.Label(mainw, text='x^2 + x + 1 = 0', font=('Helvetica', 14))
 labelEquation.grid(row=0, column=0, columnspan=3)
 
 def updateEquation(*args):
@@ -87,29 +86,29 @@ c_listener = tk.StringVar()
 c_listener.set("1")
 c_listener.trace('w', updateEquation)
 
-entrya = tk.Entry(mainw, textvariable=a_listener)
+entrya = tk.Entry(mainw, textvariable=a_listener, font=('Helvetica', 14))
 entrya.grid(row=2, column=0)
 
-entryb = tk.Entry(mainw, textvariable=b_listener)
+entryb = tk.Entry(mainw, textvariable=b_listener, font=('Helvetica', 14))
 entryb.grid(row=2, column=1)
 
-entryc = tk.Entry(mainw, textvariable=c_listener)
+entryc = tk.Entry(mainw, textvariable=c_listener, font=('Helvetica', 14))
 entryc.grid(row=2, column=2)
 
-labelEnter = tk.Label(mainw, text="Введите коэффициенты")
+labelEnter = tk.Label(mainw, text="Введите коэффициенты", font=('Helvetica', 14))
 labelEnter.grid(row=1, column=0, columnspan=3)
 
-labelResult = tk.Label(mainw, text="Корни: ")
+labelResult = tk.Label(mainw, text="Корни: ", font=('Helvetica', 14))
 labelResult.grid(row=4, column=0, columnspan=3, sticky='nsew')
 
 def solve():
     equation.solve()
     labelResult['text'] = "Корни: " + str(equation.fr) + ", " + str(equation.sr)
 
-buttonSolve = tk.Button(mainw, text="Решить", command=solve)
+buttonSolve = tk.Button(mainw, text="Решить", font=('Helvetica', 14), command=solve)
 buttonSolve.grid(row=3, column=0, columnspan=3, sticky='nsew')
 
-buttonDetailedSolve = tk.Button(mainw, text="Подробное решение", command=equation.detailed_solve)
+buttonDetailedSolve = tk.Button(mainw, text="Подробное решение", font=('Helvetica', 14), command=equation.detailed_solve)
 buttonDetailedSolve.grid(row=5, column=0, columnspan=3, sticky='nsew')
 
 mainw.mainloop()
