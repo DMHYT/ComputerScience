@@ -4,6 +4,13 @@ from math import sqrt
 
 class QuadraticEquation:
 
+    a = None
+    b = None
+    c = None
+    discr = None
+    fr = None
+    sr = None
+
     def set(self, a, b, c):
         self.a = a
         self.b = b
@@ -43,7 +50,7 @@ class QuadraticEquation:
             vieta += "x1 = " + str(self.fr) + ", x2 = " + str(self.sr) + ";"
             mb.showinfo("Решение по теореме Виета", vieta)
         else:
-            vieta = "Невозможно решить данное уравнение по теореме Виета,\nт.к. оно не имеет или имеет только один корень!"
+            vieta = "Невозможно решить данное уравнение по теореме Виета,\nт.к. оно не имеет корней или имеет только один корень!"
             mb.showwarning("Решение по теореме Виета", vieta)
 
 
@@ -67,6 +74,9 @@ def updateEquation(*args):
         c = float(entryc.get())
     except ValueError:
         pass
+    a = int(a) if float(a).is_integer() else float(a)
+    b = int(b) if float(b).is_integer() else float(b)
+    c = int(c) if float(c).is_integer() else float(c)
     eq = (str(a) if a != 1 and a != 0 else "") + ("x^2" if a != 0 else "") + " "
     eq += (("+ " + ("x" if b == 1 else (str(b) + "x" if b > 1 else "- " + str(-b) + "x"))) + " " if b != 0 else "")
     eq += (("+ " + str(c) if c > 0 and c != 0 else "- " + str(-c)) if c != 0 else "")
@@ -103,7 +113,7 @@ labelResult.grid(row=4, column=0, columnspan=3, sticky='nsew')
 
 def solve():
     equation.solve()
-    labelResult['text'] = "Корни: " + str(equation.fr) + ", " + str(equation.sr)
+    labelResult['text'] = "Корни: " + ((str(equation.fr) + ", " + str(equation.sr) if equation.fr != None else "НЕТ КОРНЕЙ!"))
 
 buttonSolve = tk.Button(mainw, text="Решить", font=('Helvetica', 14), command=solve)
 buttonSolve.grid(row=3, column=0, columnspan=3, sticky='nsew')
