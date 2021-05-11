@@ -6,14 +6,16 @@ from os import getcwd, mkdir, remove
 from os.path import exists, dirname
 from zipfile import ZipFile
 # pip install pyttsx3
-from pyttsx3 import init
+import pyttsx3 as tts
+import pyttsx3.drivers
+import pyttsx3.drivers.sapi5
 # pip install requests
 from requests import get
 # pip install pillow
 from PIL import Image
 from PIL.ImageTk import PhotoImage
 
-sound_engine = init()
+sound_engine = tts.init()
 sound_engine.setProperty('rate', 100)
 learning_word_index = -1
 current_question_number = 0
