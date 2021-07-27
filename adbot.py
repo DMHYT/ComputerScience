@@ -1,7 +1,11 @@
+# pip install pyautogui
 import pyautogui as gui
 from time import sleep
 from sys import exit as sysexit
 
+# Coords of the 'Add pause' button and timeline input line
+# for 1360x768 monitor in Chrome with 100% scale
+# Maybe, it can be made auto-configurable for any monitor and gui scale
 add_x = 300
 add_y = 240
 timeline_x = 270
@@ -41,12 +45,15 @@ def write_time():
     gui.press(["shift", ":"])
     gui.write("00")
 
+# Wait for 10 seconds to prepare the browser page
 sleep(10)
 
 while can_time_be_incremented():
     gui.click(x=timeline_x, y=timeline_y, clicks=3, interval=0.1)
     gui.press("backspace")
+    # Changing time to add new pause
     write_time()
+    # Pressing 'Add pause' button
     gui.click(x=add_x, y=add_y)
     increment_time()
 
