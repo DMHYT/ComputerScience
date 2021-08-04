@@ -39,9 +39,9 @@ def increment_time():
 
 def write_time():
     global currentMinutes, currentSeconds
-    gui.write(str(currentMinutes))
+    gui.write("0" + str(currentMinutes) if currentMinutes < 10 else str(currentMinutes))
     gui.press(["shift", ":"])
-    gui.write(str(currentSeconds))
+    gui.write("0" + str(currentSeconds) if currentSeconds < 10 else str(currentSeconds))
     gui.press(["shift", ":"])
     gui.write("00")
 
