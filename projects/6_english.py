@@ -3,14 +3,13 @@ import tkinter.messagebox as mb
 from random import choice, shuffle, randint
 from time import sleep
 from os import getcwd, mkdir, remove
-from os.path import exists, dirname
+from os.path import exists
 from zipfile import ZipFile
+from urllib.request import urlretrieve
 # pip install pyttsx3
 import pyttsx3 as tts
 import pyttsx3.drivers
 import pyttsx3.drivers.sapi5
-# pip install requests
-from requests import get
 # pip install pillow
 from PIL import Image
 from PIL.ImageTk import PhotoImage
@@ -79,17 +78,16 @@ all_words = words_colors + words_school + words_animals + words_home + words_toy
 
 def load_images():
     print("Downloading images archive from GitHub...")
-    response = get("https://raw.githubusercontent.com/DMHYT/ComputerScience/main/assets/english_game/archive.zip")
-    directory = getcwd() + "\\VSDumEnglish\\"
-    if not exists(directory):
-        mkdir(directory)
-    with open(directory + "archive.zip", 'wb') as archive:
-        archive.write(response.content)
+    app_dir = getcwd() + "\\VSDumEnglish\\"
+    archive_path = app_dir + "archive.zip"
+    if not exists(app_dir):
+        mkdir(app_dir)
+    urlretrieve(url="https://raw.githubusercontent.com/DMHYT/ComputerScience/main/assets/english_game/archive.zip", filename=archive_path)
     print("Archive successfully downloaded!")
-    with ZipFile(directory + "archive.zip") as archive:
-        archive.extractall(directory)
+    with ZipFile(archive_path) as archive:
+        archive.extractall(app_dir)
     print("Archive has been extracted!")
-    remove(directory + "archive.zip")
+    remove(archive_path)
     print("Archive has been removed!")
 load_images()
 
