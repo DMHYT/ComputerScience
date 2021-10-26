@@ -4,7 +4,7 @@ def get_int_input(hint: str) -> int:
         return result
     except ValueError:
         print("Input data is invalid! Try again...")
-        return get_int_input()
+        return get_int_input(hint)
 
 k = get_int_input("Enter students count: ")
 w = get_int_input("Enter maximum tents weight: ")
