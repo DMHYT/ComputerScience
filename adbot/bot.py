@@ -45,11 +45,11 @@ class Bot:
         pyautogui.click()
     
     def __write_time__(self) -> None:
-        pyautogui.write("0" + (str(self.current_minutes) \
-            if self.current_minutes < 10 else str(self.current_minutes)))
+        pyautogui.write("0" + str(self.current_minutes) \
+            if self.current_minutes < 10 else str(self.current_minutes))
         self.__write_colon__()
-        pyautogui.write("0" + (str(self.current_seconds) \
-            if self.current_seconds < 10 else str(self.current_seconds)))
+        pyautogui.write("0" + str(self.current_seconds) \
+            if self.current_seconds < 10 else str(self.current_seconds))
         self.__write_colon__()
         pyautogui.write("00")
     
