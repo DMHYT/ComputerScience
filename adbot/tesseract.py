@@ -9,6 +9,9 @@ TESS_ARCHIVE_URL = "https://download1478.mediafire.com/pi2i3mh4v4rg/mni87p6m5f7c
 
 
 def try_find_tesseract() -> str:
+    local_tess = join(getcwd(), ".tess")
+    if exists(local_tess):
+        return local_tess
     for letter in list("ABCDEFGHIJKLMNOPQRSTUVYXYZ"):
         for pf_folder in ["Program Files", "Program Files (x86)"]:
             arr = find_files("tesseract.exe", \
