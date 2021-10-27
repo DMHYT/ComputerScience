@@ -79,6 +79,11 @@ def find_text(rgb, tess_path=get_tesseract_cmd_path()) -> list:
         return result
 
 
+class NotEverythingFoundError(Exception):
+    def __init__():
+        super.__init__()
+
+
 def get_coords_for_bot(data: list) -> tuple:
     tx = ax = MONITOR_SIZE[0] + 1
     ty = ay = MONITOR_SIZE[1] + 1
@@ -91,6 +96,11 @@ def get_coords_for_bot(data: list) -> tuple:
             if tx > item[0]:
                 tx = item[0] + item[2] // 2
                 ty = item[1] + item[3] // 2
+    if tx == MONITOR_SIZE[0] + 1 or \
+        ax == MONITOR_SIZE[0] + 1 or \
+        ty == MONITOR_SIZE[1] + 1 or \
+        ay == MONITOR_SIZE[1] + 1:
+            raise NotEverythingFoundError()
     return (tx, ty, ax, ay)
 
 
