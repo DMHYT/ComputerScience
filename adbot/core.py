@@ -3,7 +3,7 @@ import re
 from mss import mss
 from numpy import asarray
 import pytesseract as tess
-from cv2 import bitwise_not, cvtColor, COLOR_BGR2RGB
+from cv2 import cvtColor, COLOR_BGR2GRAY
 from utils import get_monitor_size
 from tesseract import get_tesseract_cmd_path
 
@@ -22,8 +22,7 @@ def take_screenshot():
             'height': MONITOR_SIZE[1]
         })
         img = asarray(screen)
-        rgb = cvtColor(img, COLOR_BGR2RGB)
-        rgb = bitwise_not(rgb)
+        rgb = cvtColor(img, COLOR_BGR2GRAY)
         return rgb
 
 
@@ -72,11 +71,11 @@ def find_text(rgb, tess_path=get_tesseract_cmd_path()) -> list:
         tess.pytesseract.tesseract_cmd = join(tess_path, "tesseract.exe")
         data: dict = tess.image_to_data(
             rgb, output_type=tess.pytesseract.Output.DICT,
-            config=r'-l eng+rus'
+            config=r'-l rus'
         )
         filter_data_dict(data)
         result = structurize(data)
-        # result = list(filter(lambda el: len(el[5]) > 4, structurize(data)))
+        result = list(filter(lambda el: len(el[5]) > 4, structurize(data)))
         return result
 
 
@@ -84,15 +83,12 @@ def get_coords_for_bot(data: list) -> tuple:
     tx = ax = MONITOR_SIZE[0] + 1
     ty = ay = MONITOR_SIZE[1] + 1
     for item in data:
-        print(item)
         if item[5] == "РЕКЛАМНАЯ":
             ax = item[0] + item[2]
             ay = item[1] + item[3] // 2
         if TIMELINE_WITH_COLONS.match(item[5]) or \
                 TIMELINE_WITHOUT_COLONS.match(item[5]):
-            print(item[5] + " matches regex!")
             if tx > item[0]:
-                print("New tx and ty values set from " + item[5])
                 tx = item[0] + item[2] // 2
                 ty = item[1] + item[3] // 2
     return (tx, ty, ax, ay)
