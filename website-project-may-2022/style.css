@@ -1,0 +1,141 @@
+html {
+    font-family: cursive;
+    background: -webkit-gradient(linear, left top, right bottom, from(#ff9a9e), to(#fecfef)) fixed;
+}
+
+h1 {
+    text-align: center;
+    color: green;
+}
+
+h2 {
+    color: green;
+    margin-left: 30px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ff9a9e;
+    transition: 0.5s;
+}
+
+h2:hover {
+    border-width: 3px;
+    border-color: red;
+    transition: 0.5s;
+}
+
+.credits {
+    text-align: right;
+    margin: 0px;
+}
+
+.authorname {
+    color: red;
+    text-decoration: underline;
+    transition: 0.5s;
+}
+
+.authorname:hover {
+    color: green;
+    transition: 0.5s;
+}
+
+.readmore {
+    color: blue;
+    text-decoration: underline;
+    transition: 0.5s;
+}
+
+.readmore:hover {
+    color: red;
+    text-decoration: none;
+    transition: 0.5s;
+}
+
+img {
+    width: 80%;
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+    border-radius: 100px;
+}
+
+p {
+    color: #444;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ff9a9e;
+    transition: 0.5s;
+}
+
+p:hover {
+    border-color: #444;
+    border-width: 3px;
+    transition: 0.5s;
+}
+
+.paragraphbegin {
+    color: red;
+    font-size: 24px;
+    font-family: serif;
+    font-weight: bold;
+}
+
+.button {
+    position: absolute;
+    background: #667eea;
+    border-width: 2px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 100px;
+    padding: 10px;
+    min-height: 10px;
+    min-width: 100px;
+    color: white;
+    transition: 0.5s;
+}
+
+.button:hover {
+    background: #89f7fe;
+    color: black;
+    border-width: 3px;
+    border-color: white;
+    transition: 0.5s;
+}
+
+.articlelink {
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+    display: block;
+    text-align: right;
+    margin-top: 0px;
+    transition: 0.5s;
+}
+
+.articlelink:hover {
+    color: green;
+    font-size: 18px;
+    transition: 0.5s;
+}
+
+.languagelogo {
+    width: 20%;
+    border-radius: 0px;
+    margin-right: 10px;
+    float: left;
+}
+
+.codeexample {
+    border-radius: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 40%;
+    float: right;
+}
